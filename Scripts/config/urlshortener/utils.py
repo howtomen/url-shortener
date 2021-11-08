@@ -6,7 +6,7 @@ from random import choice
 from string import ascii_letters, digits
 
 
-SIZE = getattr(settings, "MAX_URL_CHARS". 7) #try to get val from settings
+SIZE = getattr(settings, "MAX_URL_CHARS", 7) #try to get val from settings
 
 AVAILABLE_CHARS = ascii_letters + digits
 
