@@ -19,7 +19,7 @@ def create_shortened_url(model_instance):
 	randomCode =create_random_code()
 
 	model_class = model_instance.__class__
-	if model_class.objects.fulter(short_url=randomCode).exists():
+	if model_class.objects.filter(short_url=randomCode).exists():
 		return create_shortned_url(model_instance)
 
 	return randomCode
