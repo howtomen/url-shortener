@@ -1,26 +1,27 @@
 '''
-Utilities for shortener
+Utilities for Shortener
 '''
 from django.conf import settings
+
 from random import choice
+
 from string import ascii_letters, digits
 
+# Try to get the value from the settings module
+SIZE = getattr(settings, "MAXIMUM_URL_CHARS", 7)
 
-SIZE = getattr(settings, "MAX_URL_CHARS", 7) #try to get val from settings
-
-AVAILABLE_CHARS = ascii_letters + digits
+AVAIABLE_CHARS = ascii_letters + digits
 
 
-def create_random_code(chars=AVAILABLE_CHARS):
-	#creates random string with predetermined size
-	return ''.join([choice(chars) for _ in range(SIZE)])
+def create_random_code(chars=AVAIABLE_CHARS):
+    return "".join([choice(chars) for _ in range(SIZE)]) # creates random string of predetermined size
 
 def create_shortened_url(model_instance):
-	randomCode =create_random_code()
+    random_code = create_random_code()
+    # Gets the model class
+    model_class = model_instance.__class__
 
-	model_class = model_instance.__class__
-	if model_class.objects.filter(short_url=randomCode).exists():
-		return create_shortned_url(model_instance)
+    if model_class.objects.filter(short_url=random_code).exists():
+        return create_shortened_url(model_instance)
 
-	return randomCode
-
+    return random_code
